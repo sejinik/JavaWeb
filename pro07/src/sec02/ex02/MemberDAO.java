@@ -29,6 +29,7 @@ public class MemberDAO {
 	
 	private Connection con;
 	private PreparedStatement pstmt;
+	//JavaSE에서 제공하는 ConnectionPool을 구현하기 위한 class
 	private DataSource dataFactory;
 	
 	public MemberDAO() {
@@ -36,7 +37,7 @@ public class MemberDAO {
 			Context ctx = new InitialContext();
 			//JNDI에 접근하기 위해 기본 경로("java:/comp/env")를 지정한다
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
-			//톰캣 context.xml에 설정한 name값인 ("jdbc/oracle")을 이용해 톰캣이 미리 연결한 DataSource를 가져온다
+			//톰캣 context.xml에 설정한 name값인 ("jdbc/oracle")을 이용해 톰캣이 미리 연결한 DataSource를 가져온다 == db와 ConnectionPool을 연결시킨다
 			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
 		} catch (Exception e) {
 			// TODO: handle exception
