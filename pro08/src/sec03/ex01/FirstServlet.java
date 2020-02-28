@@ -16,7 +16,7 @@ import org.omg.CORBA.Request;
 public class FirstServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispathch = request.getRequestDispatcher("second");
+		RequestDispatcher dispathch = request.getRequestDispatcher("second?name=lee&age=3");
 		dispathch.forward(request, response);
 	}
 

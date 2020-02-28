@@ -16,9 +16,11 @@ public class SecondServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
+		String name = request.getParameter("name");
+		String age = request.getParameter("age");
 		out.print("<html><body>");
-		out.print("dispatch를 이용한 forward 실습입니다");
+		out.print("dispatch를 이용한 forward 실습입니다"+"<br>");
+		out.print("name : "+name+", age : "+age);
 		out.print("</body></html>");
 	}
 
