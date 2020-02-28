@@ -1,4 +1,4 @@
-package sec01.ex03;
+package sec02.ex01;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/second")
+@WebServlet("/second")
 public class SecondServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
+		String name = request.getParameter("name");
 		out.print("<html><body>");
-		out.print("location를 이용한 redirect 실습입니다");
+		out.print("name : "+name+"<br>");
 		out.print("</body></html>");
 	}
 
