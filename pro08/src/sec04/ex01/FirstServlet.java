@@ -1,4 +1,4 @@
-package sec03.ex01;
+package sec04.ex01;
 
 import java.io.IOException;
 
@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.omg.CORBA.Request;
 
-
-//@WebServlet("/first")
+@WebServlet("/first")
 public class FirstServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispathch = request.getRequestDispatcher("second?name=lee&age=3");
-		dispathch.forward(request, response);
+		request.setAttribute("address", "서울");
+		response.sendRedirect("second");
 	}
 
 }
