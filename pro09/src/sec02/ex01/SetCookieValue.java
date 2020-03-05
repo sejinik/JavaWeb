@@ -22,7 +22,12 @@ public class SetCookieValue extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Date d = new Date();
 		Cookie c= new Cookie("cookieTest",URLEncoder.encode("JSP프로그래밍입니다.","utf-8"));
-		c.setMaxAge(24*60*60);
+		
+		//Persistence 쿠키 생성
+		//c.setMaxAge(24*60*60);
+		
+		//Session 쿠키 생성
+		c.setMaxAge(-1);
 		response.addCookie(c);
 		out.print("현재시간 : "+d);
 		out.print("<br> 문자열을 Cookie에 저장합니다");
