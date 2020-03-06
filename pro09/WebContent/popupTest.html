@@ -22,7 +22,7 @@
 				element = cookie[i].split("=");
 				value = element[0];
 				value = value.replace(/^\s*/,'');
-				if(value=="nowShowPop"){
+				if(value=="notShowPop"){
 					result=element[1];
 				}
 			}
@@ -31,12 +31,11 @@
 	}
 	
 	let deleteCookie = () => {
-		document.cookie = "nowShowPop="+"false"+";path=/; expires=-1";
+		document.cookie = "notShowPop="+"false"+";path=/; expires=-1";
 	}
 	
 	//페이지 로드 이벤트 처리
 	window.onload = pageLoad;
-	
 	
 </script>
 </head>

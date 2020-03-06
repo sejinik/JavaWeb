@@ -7,8 +7,9 @@
 		if(obj.checked==true){
 			let expireDate = new Date();
 			expireDate.setMonth(expireDate.getMonth()+1);
-			document.cookie="nowShowPop="+"true"+";path=/; expires="+expireDate.toGMTString();
+			document.cookie="notShowPop="+"true"+";path=/; expires="+expireDate.toGMTString();
 			window.close();
+
 		}
 	}
 </script>
