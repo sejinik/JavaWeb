@@ -10,3 +10,7 @@
   - SQLNET.ALLOWED_LOGON_VERSION_SERVER=9
   - SQLNET.ALLOWED_LOGON_VERSION_CLIENT=9
 ----
+
+### Multiple annotations found at this line
+  - JSP에서 표현언어를 사용할 때 톰캣에서는 돌아가지만 이클립스에서 해당 에러가 발생할 때
+  - Build path => Add Library => Server Runtime Library 추가
