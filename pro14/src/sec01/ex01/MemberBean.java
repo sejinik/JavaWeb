@@ -13,13 +13,12 @@ public class MemberBean {
 		
 	}
 	
-	public MemberBean(String id, String pwd, String name, String email, Date joinDate) {
+	public MemberBean(String id, String pwd, String name, String email) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
 		this.email = email;
-		this.joinDate = joinDate;
 	}
 	
 	public String getId() {
