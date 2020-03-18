@@ -29,7 +29,7 @@
 					</td>
 				</tr>
 			</c:when>
-			<c:when test="${not empty membersList }">
+			<c:when test="${not empty membersList }">1
 				<c:forEach	var="member" items="${membersList }">
 					<tr align="center">
 						<td>${member.id }</td>
