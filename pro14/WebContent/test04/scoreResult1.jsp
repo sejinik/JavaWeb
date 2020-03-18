@@ -18,8 +18,7 @@
 		<c:when test="${score >=90 }"><h1>A</h1></c:when>
 		<c:when test="${score >=80 }"><h1>B</h1></c:when>
 		<c:when test="${score >=70 }"><h1>C</h1></c:when>
-		<c:when test="${score >=70 }"><h1>D</h1></c:when>
-		<c:when test="${score >=60 }"><h1>F</h1></c:when>
+		<c:when test="${score >=60 }"><h1>D</h1></c:when>
 	</c:choose>
 </body>
 </html>
