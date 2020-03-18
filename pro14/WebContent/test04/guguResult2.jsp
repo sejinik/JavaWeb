@@ -17,10 +17,19 @@
 			<td colspan="2">${dan}단 출력</td>
 		</tr>
 		<c:forEach var="i" begin="1" end="9" step="1">
-			<tr align="center">
-				<td width="400">${i } X ${dan }</td>
-				<td width="400">${i*dan }</td>
-			</tr>
+			
+			<c:if test="${i%2==0 }">
+				<tr align="center" bgcolor="red">
+					<td width="400">${i } X ${dan }</td>
+					<td width="400">${i*dan }</td>
+				</tr>
+			</c:if>
+			<c:if test="${i%2!=0 }">
+				<tr align="center" bgcolor="blue">
+					<td width="400">${i } X ${dan }</td>
+					<td width="400">${i*dan }</td>
+				</tr>
+			</c:if>
 		</c:forEach>
 		
 	</table>
