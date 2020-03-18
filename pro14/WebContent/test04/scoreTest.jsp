@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>시험 점수 입력 페이지</title>
 </head>
 <body>
-
+	<form action="scoreResult1.jsp" method="get">
+		시험점수 : <input type="text" name="score"><br>
+		<input type="submit" value="변환">
+	</form>
 </body>
 </html>
