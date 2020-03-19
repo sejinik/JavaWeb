@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ID 중복 여부</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	let idCheck = () => {
+		let _id = $("#t_id").val()
+		if(_id==''){
+			alert("ID를 입력하세요");
+			return;
+		}
+		$.ajax({
+			type:"post",
+			dataType:"text",
+			async:true,
+			data:{id:_id},
+			url:"http://localhost:8090/pro16/mem",
+			success:(data,textStatus)=>{
+				if(data=='usable'){
+					$("#message").text("사용할 수 있는 ID입니다");
+					$("#btnDuplicate").prop("disabled",true);
+				}else{
+					$("#message").text("사용할 수 없는 ID입니다");
+				}
+			},
+			error:(data,textStatus)=>{
+				alert("에러가 발생했습니다");
+			},
+			complete:(data,textStatus)=>{
+				
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="t_id">
+	<input type="button" value="id 중복 체크" id="btnDuplicate" onClick="idCheck()" /><br><br>
+	<div id="message"></div>
+</body>
+</html>
