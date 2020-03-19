@@ -13,15 +13,23 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script type="text/javascript">
 	$(()=>{
-		$("#checkJson").on("click",()=>{
-			let _jsonInfo = '{"name":"박지성","age":"25","gender":"남자","nickname":"날센돌이"}';
+		$("#checkJson").on("click",()=> {
 			$.ajax({
 				type:"post",
 				async:false,
-				url:"${contextPath}/json",
-				data:{jsonInfo : _jsonInfo},
-				success:(data,textStatus) =>{
+				url:"${contextPath}/json2",
+				success:(data,textStatus) => {
+					let jsonInfo = JSON.parse(data);
+					let memberInfo = "회원 정보<br>";
+					memberInfo +="=======<br>";
 					
+					for(let i in jsonInfo.members){
+						 memberInfo += "이름: " + jsonInfo.members[i].name+"<br>";
+						 memberInfo += "나이: " + jsonInfo.members[i].age+"<br>";
+						 memberInfo += "성별: " + jsonInfo.members[i].gender+"<br>";
+						 memberInfo += "별명: " + jsonInfo.members[i].nickname+"<br><br><br>";						
+					}
+					$("#output").html(memberInfo);
 				},
 				error:(data,textStatus) => {
 					alert("에러가 발생했습니다");
@@ -35,7 +43,7 @@
 </script>
 </head>
 <body>
-	<a id="checkJson" style="cursor:pointer">전송</a><br><br>
+	<a id="checkJson" style="cursor:pointer">회원정보 수신하기</a><br><br>
 	<div id="output"></div>
 </body>
 </html>
