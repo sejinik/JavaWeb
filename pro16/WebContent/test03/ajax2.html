@@ -2,9 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ajax test2</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	let printBook = () => {
+		$.ajax({
+			type:"post",
+			dataType:"xml",
+			async:false,
+			url:"http://localhost:8090/pro16/ajaxTest2",
+			success:(info,textStatus) => {
+				$(info).find("book").each(function(){
+					let title=$(this).find("title").text();
+					let writer = $(this).find("writer").text();
+					let image = $(this).find("image").text();
+					console.log(title);
+					console.log(writer);
+					console.log(image);
+					$("#book").append(
+						"<p>"+title+"</p>"+
+						"<p>"+writer+"</p>"+
+						"<img src='"+image+"'/>"
+					)
+				})
+			},
+			error:(info,textStatus) => {
+				alert("에러가 발생했습니다.");
+			},
+			complete : (info,textStatus) => {
+					
+			}
+		});
+	}
+</script>
 </head>
 <body>
-
+	<input type="button" value="도서 정보 요청" onClick="printBook()">
+	<div id="book"></div> 
 </body>
 </html>
