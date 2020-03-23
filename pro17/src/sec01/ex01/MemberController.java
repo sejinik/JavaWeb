@@ -48,7 +48,7 @@ public class MemberController extends HttpServlet {
 			
 			MemberVO vo = new MemberVO(id,pwd,name,email);
 			memberDAO.addMember(vo);
-			nextPage="/member/listMembers.do";
+			nextPage="/member/listMembers.do"; // 다시 서블릿으로 커맨드패턴
 		} else if(action.equals("/memberForm.do")) {
 			nextPage = "/test02/memberForm.jsp";
 		} else {
