@@ -32,9 +32,9 @@ public class BoardDAO {
 		try {
 			conn = dataFactory.getConnection();
 			String query = "SELECT LEVEL,articleNO,parentNO,title,content,id,writeDate"
-						+ " from t_board"
+						+ " from t_board "
 								+ "START WITH parentNO=0 "
-								+ "CONNECT BY PRIOR articleNO = parentNO "
+								+ "CONNECT BY PRIOR articleNO=parentNO "
 								+ "ORDER SIBLINGS BY articleNO DESC";
 			System.out.println("Query : "+query);
 			
