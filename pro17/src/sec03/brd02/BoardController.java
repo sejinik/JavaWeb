@@ -21,9 +21,6 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 
-
-
-
 /**
  * Servlet implementation class BoardController
  */
@@ -62,7 +59,7 @@ public class BoardController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		String action = request.getPathInfo();
-		System.out.println("action : "+action);
+		//System.out.println("action : "+action);
 		
 		try {
 			List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
@@ -70,7 +67,7 @@ public class BoardController extends HttpServlet {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
 				nextPage = "/board02/listArticles.jsp";
-			} else if( action.equals("/listArticles.jsp")) {
+			} else if( action.equals("/listArticles.do")) {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
 				nextPage = "/board02/listArticles.jsp";
@@ -110,7 +107,7 @@ public class BoardController extends HttpServlet {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		
 		try {
-			List items = upload.parseRequest((RequestContext) request);
+			List items = upload.parseRequest(null);
 			for(int i=0; i<items.size();i++) {
 				FileItem fileItem = (FileItem) items.get(i);
 				if(fileItem.isFormField()) {
