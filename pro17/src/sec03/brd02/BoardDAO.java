@@ -31,15 +31,12 @@ public class BoardDAO {
 		List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
 		try {
 			conn = dataFactory.getConnection();
-			String query = "select level, articleno, parentno, title, content, id, writeDate "
-						+ "from t_board "
-						+ "start with parentNo=0 "
-						+ "connect by prior articleno = parentno "
-						+ "order siblings by articleno desc";
+			String query = "SELECT LEVEL,articleNO,parentNO,title,content,id,writeDate" + " from t_board"
+					+ " START WITH  parentNO=0" + " CONNECT BY PRIOR articleNO=parentNO"
+					+ " ORDER SIBLINGS BY articleNO DESC";
 			System.out.println("Qeury : "+query);
 			pstmt = conn.prepareStatement(query);			
 			ResultSet rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
 				int level = rs.getInt("level");
 				int articleNO = rs.getInt("articleNO");
@@ -48,7 +45,6 @@ public class BoardDAO {
 				String content = rs.getString("content");
 				String id = rs.getString("id");
 				Date writeDate = rs.getDate("writeDate");
-				
 				ArticleVO article = new ArticleVO();
 				article.setArticleNO(articleNO);
 				article.setContent(content);
@@ -69,7 +65,7 @@ public class BoardDAO {
 	private int getNewArticleNO() {
 		try {
 			conn = dataFactory.getConnection();
-			String query = "SELECE max(articleNO) from t_board";
+			String query = "SELECT max(articleNO) from t_board";
 			System.out.println("Query : "+query);
 			pstmt = conn.prepareStatement(query);
 			

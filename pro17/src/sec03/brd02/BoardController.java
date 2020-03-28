@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 /**
@@ -59,7 +59,7 @@ public class BoardController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		String action = request.getPathInfo();
-		//System.out.println("action : "+action);
+		System.out.println("action : "+action);
 		
 		try {
 			List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
@@ -107,7 +107,7 @@ public class BoardController extends HttpServlet {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		
 		try {
-			List items = upload.parseRequest(null);
+			List items = upload.parseRequest(request);
 			for(int i=0; i<items.size();i++) {
 				FileItem fileItem = (FileItem) items.get(i);
 				if(fileItem.isFormField()) {
@@ -115,9 +115,9 @@ public class BoardController extends HttpServlet {
 					articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
 				} else {
 					System.out.println("파라미터명 : "+fileItem.getFieldName());
-					//System.out.println("파일명 : "+fileItem.getName());
+					System.out.println("파일명 : "+fileItem.getName());
 					System.out.println("파일크기 : "+fileItem.getSize()+"bytes");
-					//articleMap.put(fileItem.getFieldName(),fileItem.getName());
+					articleMap.put(fileItem.getFieldName(),fileItem.getName());
 					if(fileItem.getSize()>0) {
 						int idx = fileItem.getName().lastIndexOf("\\");
 						if(idx==-1) {
@@ -125,8 +125,8 @@ public class BoardController extends HttpServlet {
 						}
 						
 						String fileName = fileItem.getName().substring(idx+1);
-						System.out.println("파일명 : "+fileName);
-						articleMap.put(fileItem.getFieldName(),fileName);
+						//System.out.println("파일명 : "+fileName);
+						//articleMap.put(fileItem.getFieldName(),fileName);
 						File uploadFile = new File(currentDirPath+"\\"+fileName);
 						fileItem.write(uploadFile);
 					}
