@@ -13,6 +13,11 @@
 <head>
 <meta charset="UTF-8">
 <title>글보기</title>
+<style>
+	 #tr_btn_modify{
+       display:none;
+     }
+</style>
 <script type="text/javascript">
 	function backToList(obj){
 		obj.action = "${contextPath}/board/listArticles.do";
