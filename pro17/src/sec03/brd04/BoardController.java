@@ -89,7 +89,7 @@ public class BoardController extends HttpServlet {
 				
 				if(imageFileName !=null && imageFileName.length()!=0) {
 					File srcFile = new File(ARTICLE_IMAGE_REPO+"\\temp\\"+imageFileName);
-					File destDir = new File(ARTICLE_IMAGE_REPO+articleNO);
+					File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
 					destDir.mkdir();
 					
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
@@ -101,7 +101,7 @@ public class BoardController extends HttpServlet {
 						 +" location.href='"+request.getContextPath()+"/board/listArticles.do';"
 				         +"</script>");		
 				return;
-			} else if(action.equals("/board/viewArticle.do")) {
+			} else if(action.equals("/viewArticle.do")) {
 				String articleNO = request.getParameter("articleNO");
 				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
 				request.setAttribute("article", articleVO);
