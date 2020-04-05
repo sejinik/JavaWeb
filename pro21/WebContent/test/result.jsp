@@ -12,6 +12,7 @@
   <meta charset="UTF-8">
   <title>결과창</title>
 </head>
+
 <body>
 <table border="1" width="50%" align="center" >
 
