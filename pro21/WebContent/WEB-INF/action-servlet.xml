@@ -48,7 +48,9 @@
 		  class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
+
 				<prop key="/test/login.do">login</prop>
+				<prop key="/test/memberForm.do">memberForm</prop>
 				<prop key="/test/memberInfo.do">memberInfo</prop> 
 			</props>
 		</property>

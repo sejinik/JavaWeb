@@ -26,7 +26,7 @@
 	    <input type="text" name="userID" value="" size="20">
 	 </td>
          <td>
-	    <input type="password" name="passwd" value="" size="20">
+	    <input type="password" name="userPW" value="" size="20">
 	 </td>
       </tr>
       <tr align="center">
