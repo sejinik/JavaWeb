@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.spring.member.service.MemberService;
+import com.spring.member.vo.MemberVO;
 
 public class MemberControllerImpl extends MultiActionController implements MemberController {
 	private MemberService memberService;
@@ -23,8 +24,40 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 		List membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("membersList", membersList);
-		return mav;
+				return mav;
 	}
+	
+	@Override
+	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = getViewName(request);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;		
+	}
+	
+	@Override
+	public ModelAndView addMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
+		MemberVO memberVO = new MemberVO();
+		
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		memberVO.setId(id);
+		memberVO.setPwd(pwd);
+		memberVO.setName(name);
+		memberVO.setEmail(email);
+		
+		int result = memberService.addMember(memberVO);
+		System.out.println("addMember result : "+result);
+		
+		String url = "/member/listMembers.do";
+		return new ModelAndView("redirect:"+url);
+	}
+	
 	
 	
 	private String getViewName(HttpServletRequest request) throws Exception {
