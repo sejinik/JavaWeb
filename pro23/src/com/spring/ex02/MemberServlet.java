@@ -1,19 +1,18 @@
-package com.spring.ex01;
+package com.spring.ex02;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/mem.do")
+
+@WebServlet("/mem2.do")
 public class MemberServlet extends HttpServlet {
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -21,17 +20,19 @@ public class MemberServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
-	
-	private void doHandle(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+
+	private void doHandle(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
-		MemberDAO dao = new MemberDAO();
-		List<MemberVO> membersList = dao.selectAllMemberList();
-		request.setAttribute("membersList", membersList);
+		MemberDAO memberDAO = new MemberDAO();
+		String name = memberDAO.selectName();
+		int pwd = memberDAO.selectPwd();
 		
-		RequestDispatcher dispatch =request.getRequestDispatcher("test01/listMembers.jsp");
-		dispatch.forward(request, response);
+		PrintWriter pw = response.getWriter();
+		pw.write("<script>");
+		pw.write("alert('이름 :"+name+"');");
+		pw.write("alert('비밀번호: "+pwd+"');");
+		pw.write("</script>");
 	}
-
 }
