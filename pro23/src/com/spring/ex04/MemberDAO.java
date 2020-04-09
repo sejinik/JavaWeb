@@ -51,8 +51,7 @@ public class MemberDAO {
 	public int insertMember(MemberVO memberVO) {
 		sqlMapper = getInstance();
 		SqlSession session = sqlMapper.openSession();
-		int result=0;
-		result = session.insert("mapper.member.insertMember", memberVO);
+		int result = session.insert("mapper.member.insertMember", memberVO);
 		session.commit();
 		return result;
 	}
@@ -60,8 +59,15 @@ public class MemberDAO {
 	public int insertMember2(HashMap member) {
 		sqlMapper = getInstance();
 		SqlSession session = sqlMapper.openSession();
-		int result=0;
-		result = session.insert("mapper.member.insertMember2", member);
+		int result = session.insert("mapper.member.insertMember2", member);
+		session.commit();
+		return result;
+	}
+	
+	public int updateMember(MemberVO memberVO) {
+		sqlMapper = getInstance();
+		SqlSession session = sqlMapper.openSession();
+		int result=session.update("mapper.member.updateMember",memberVO);
 		session.commit();
 		return result;
 	}

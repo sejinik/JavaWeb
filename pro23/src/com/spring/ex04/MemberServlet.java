@@ -88,6 +88,21 @@ public class MemberServlet extends HttpServlet {
 			System.out.println("insertMember result : "+result);
 			
 			nextPage = "/mem4.do?action=listMembers";
+		} else if(action.equals("updateMember")) {
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			memberVO.setId(id);
+			memberVO.setPwd(pwd);
+			memberVO.setName(name);
+			memberVO.setEmail(email);
+			
+			int result = memberDAO.updateMember(memberVO);
+			System.out.println("updateMember result : "+result);
+			
+			nextPage = "/mem4.do?action=listMembers";
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
