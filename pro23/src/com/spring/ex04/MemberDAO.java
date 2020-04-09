@@ -1,6 +1,7 @@
 package com.spring.ex04;
 
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -55,4 +56,14 @@ public class MemberDAO {
 		session.commit();
 		return result;
 	}
+	
+	public int insertMember2(HashMap member) {
+		sqlMapper = getInstance();
+		SqlSession session = sqlMapper.openSession();
+		int result=0;
+		result = session.insert("mapper.member.insertMember2", member);
+		session.commit();
+		return result;
+	}
+	
 }

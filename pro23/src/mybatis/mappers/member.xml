@@ -63,5 +63,12 @@
 			values (#{id},#{pwd},#{name},#{email})
 		]]>
 	</select>
+	
+	<select id="insertMember2" parameterType="java.util.HashMap">
+		<![CDATA[
+			insert into t_member (id,pwd,name,email)
+			values (#{id},#{pwd},#{name},#{email})
+		]]>
+	</select>
 	 
 </mapper>

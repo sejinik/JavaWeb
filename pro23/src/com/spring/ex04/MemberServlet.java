@@ -1,6 +1,7 @@
 package com.spring.ex04;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -68,6 +69,22 @@ public class MemberServlet extends HttpServlet {
 			memberVO.setEmail(email);
 			
 			int result = memberDAO.insertMember(memberVO);
+			System.out.println("insertMember result : "+result);
+			
+			nextPage = "/mem4.do?action=listMembers";
+		} else if(action.equals("insertMember2")) {
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			HashMap<String, String> memberMap = new HashMap<>();
+			memberMap.put("id", id);
+			memberMap.put("pwd", pwd);
+			memberMap.put("name",name);
+			memberMap.put("email", email);
+			
+			int result = memberDAO.insertMember2(memberMap);
 			System.out.println("insertMember result : "+result);
 			
 			nextPage = "/mem4.do?action=listMembers";
