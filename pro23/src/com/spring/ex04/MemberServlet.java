@@ -103,6 +103,12 @@ public class MemberServlet extends HttpServlet {
 			System.out.println("updateMember result : "+result);
 			
 			nextPage = "/mem4.do?action=listMembers";
+		} else if(action.equals("deleteMember")) {
+			String id = request.getParameter("id");
+			int result = memberDAO.deleteMember(id);
+			System.out.println("deleteMember result : "+result);
+			
+			nextPage = "/mem4.do?action=listMembers";
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
