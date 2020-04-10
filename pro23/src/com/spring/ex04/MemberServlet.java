@@ -132,6 +132,17 @@ public class MemberServlet extends HttpServlet {
 			
 			request.setAttribute("membersList", membersList);
 			nextPage = "/test03/listMembers.jsp";
+		
+		} else if(action.equals("foreachInsert")) {
+			
+			List<MemberVO> membersList = new ArrayList<>();
+			membersList.add(new MemberVO("m1","1234","박길동","m1@test.com"));
+			membersList.add(new MemberVO("m2","1234","이길동","m1@test.com"));
+			membersList.add(new MemberVO("m3","1234","김길동","m1@test.com"));
+			
+			int result = memberDAO.foreachInsert(membersList);
+			nextPage = "/mem4.do?action=listMembers";
+			
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
