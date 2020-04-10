@@ -101,10 +101,17 @@
 		 order by joinDate desc
 	</select> -->
 	
-	<select id="searchMember" parameterType="memberVO" resultMap="memResult">
+	<sql id="a">
 		<![CDATA[
 			select * from t_member
 		]]>
+	</sql>
+	
+	<select id="searchMember" parameterType="memberVO" resultMap="memResult">
+		<include refid="a" />
+		<!-- <![CDATA[
+			select * from t_member
+		]]> -->
 		<where>
 			<choose>
 				<when test="name !='' and name !=null and email != '' and email != null">
@@ -122,9 +129,10 @@
 	</select>
 	
 	<select id="foreachSelect" resultMap="memResult" parameterType="java.util.Map">
-		<![CDATA[
+		<include refid="a" />
+		<!-- <![CDATA[
 			select * from t_member
-		]]>
+		]]> -->
 		
 		where name in
 		<foreach collection="list" item = "item" open="(" separator="," close=")">
@@ -133,7 +141,7 @@
 		order by joinDate desc
 	</select>
 	
-	<insert id="foreachInsert" parameterType="java.util.Map">
+	<insert id="foreachInsert" parameterType="java.util.List">
 		<foreach collection="list" item="item" open="INSERT ALL" separator=" " close="select * from dual">
 			INTO t_member(id,pwd,name,email) 
 			VALUES (#{item.id}, #{item.pwd},#{item.name},#{item.email})
