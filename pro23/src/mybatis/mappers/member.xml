@@ -86,7 +86,7 @@
 		]]>
 	</delete>
 	
-	<select id="searchMember" parameterType="memberVO" resultMap="memResult">
+	<!-- <select id="searchMember" parameterType="memberVO" resultMap="memResult">
 		<![CDATA[
 			select * from t_member
 		]]>
@@ -99,6 +99,26 @@
 			</if>
 		</where>
 		 order by joinDate desc
+	</select> -->
+	
+	<select id="searchMember" parameterType="memberVO" resultMap="memResult">
+		<![CDATA[
+			select * from t_member
+		]]>
+		<where>
+			<choose>
+				<when test="name !='' and name !=null and email != '' and email != null">
+					name = #{name} and email = #{email}
+				</when>
+				<when test="name != '' and name != null">
+					name  = #{name}
+				</when>
+				<when test="email != '' and email != null">
+					email = #{email}
+				</when>
+			</choose>
+		</where>
+		order by joinDate desc
 	</select>
 	
 </mapper>
