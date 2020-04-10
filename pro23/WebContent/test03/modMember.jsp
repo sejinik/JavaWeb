@@ -16,7 +16,7 @@
 </head>
 <body>
 	<form method="post" action="${contextPath }/mem4.do?action=updateMember" >
-		<h1 class="text_center">회원 가입 창</h1>
+		<h1 class="text_center">회원 수정 창</h1>
 		<table align="center">
 			<tr>
 				<td width="200">아이디</td>

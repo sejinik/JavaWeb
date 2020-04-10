@@ -109,6 +109,18 @@ public class MemberServlet extends HttpServlet {
 			System.out.println("deleteMember result : "+result);
 			
 			nextPage = "/mem4.do?action=listMembers";
+			
+		} else if(action.equals("searchMember")) {
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			memberVO.setName(name);
+			memberVO.setEmail(email);
+			
+			List<MemberVO> membersList = memberDAO.searchMember(memberVO);
+			request.setAttribute("membersList", membersList);
+			
+			nextPage = "/test03/listMembers.jsp";
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
