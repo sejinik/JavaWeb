@@ -1,6 +1,7 @@
 package com.spring.ex04;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,6 +121,16 @@ public class MemberServlet extends HttpServlet {
 			List<MemberVO> membersList = memberDAO.searchMember(memberVO);
 			request.setAttribute("membersList", membersList);
 			
+			nextPage = "/test03/listMembers.jsp";
+		
+		} else if(action.equals("foreachSelect")) {
+			List<String> nameList = new ArrayList<String>();
+			nameList.add("홍길동");
+			nameList.add("차범근");
+			nameList.add("이순신");
+			List membersList = memberDAO.foreachSelect(nameList);
+			
+			request.setAttribute("membersList", membersList);
 			nextPage = "/test03/listMembers.jsp";
 		}
 		

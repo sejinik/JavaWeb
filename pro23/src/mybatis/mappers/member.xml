@@ -121,4 +121,16 @@
 		order by joinDate desc
 	</select>
 	
+	<select id="foreachSelect" resultMap="memResult" parameterType="java.util.Map">
+		<![CDATA[
+			select * from t_member
+		]]>
+		
+		where name in
+		<foreach collection="list" item = "item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		order by joinDate desc
+	</select>
+	
 </mapper>
