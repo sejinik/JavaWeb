@@ -15,7 +15,7 @@
 <title>로그인</title>
 </head>
 <body>
-	<form action="${contextPath }/test/login.do" method="post">
+	<form action="${contextPath }/test/login2.do" method="post">
 		<table width="400">
 			<tr>
 				<td>아이디 <input type="text" name="userID" size="10"></td>
