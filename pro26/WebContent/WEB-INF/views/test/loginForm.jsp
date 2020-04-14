@@ -24,6 +24,9 @@
 				<td>이름 <input type="text" name="userName" size="10"></td>
 			</tr>
 			<tr>
+				<td>메일 <input type="text" name="email" size="10"></td>
+			</tr>
+			<tr>
 				<td><input type="submit" value="로그인"></td>
 			</tr>
 		</table>

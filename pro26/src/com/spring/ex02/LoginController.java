@@ -33,13 +33,15 @@ public class LoginController {
 	
 	//@RequestParam을 이용해서 매개변수가 userID면 변수 userID에 넣는다
 	@RequestMapping(value="/test/login2.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView login2(@RequestParam("userID") String userID, @RequestParam("userName") String userName, HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public ModelAndView login2(@RequestParam("userID") String userID, @RequestParam(value="userName", required=true) String userName, @RequestParam(value="email", required=false) String email , HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
 		System.out.println("userID : "+userID);
 		System.out.println("userName : "+userName);
+		System.out.println("email : "+email);
 		mav.addObject("userID", userID);
 		mav.addObject("userName", userName);
+		mav.addObject("email",email);
 		mav.setViewName("result");
 		return mav;
 	}
