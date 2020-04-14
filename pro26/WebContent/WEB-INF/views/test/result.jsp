@@ -13,8 +13,8 @@
 <title>결과</title>
 </head>
 <body>
-	<h1>아이디 : ${userID }</h1>
-	<h1>이름 : ${userName }</h1>
-	<h1>메일 : ${email }</h1>
+	<h1>아이디 : ${info.userID }</h1>
+	<h1>이름 : ${info.userName }</h1>
+	<h1>메일 : ${info.email }</h1>
 </body>
 </html>
