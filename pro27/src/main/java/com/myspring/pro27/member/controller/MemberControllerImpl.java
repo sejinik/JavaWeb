@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +22,9 @@ import com.myspring.pro27.member.vo.MemberVO;
 @Controller("memberController")
 public class MemberControllerImpl extends MultiActionController implements MemberController {
 
+	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
+	
+	
 	@Autowired
 	private MemberService memberService;
 	
@@ -31,6 +36,10 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String viewName = getViewName(request);
+		
+		logger.info("viewName : " +viewName);
+		logger.debug("viewName : "+viewName);
+		
 		ModelAndView mav = new ModelAndView(viewName);
 		List<MemberVO> membersList = memberService.listMembers();
 		mav.addObject("membersList", membersList);
