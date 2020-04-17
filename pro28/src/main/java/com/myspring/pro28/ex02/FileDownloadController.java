@@ -26,7 +26,7 @@ public class FileDownloadController {
 		File thumbnail = new File(CURR_IMAGE_REPO_PATH+"/thumbnail/"+fileName+".png");
 		
 		//thumbnail 에 image 파일을 썸네일로 만들어서 넣는다
-		if(image.exists()) {
+		/*if(image.exists()) {
 			thumbnail.getParentFile().mkdirs();
 			Thumbnails.of(image).size(50, 50).outputFormat("png").toFile(thumbnail);
 		}
@@ -40,6 +40,16 @@ public class FileDownloadController {
 			out.write(buffer, 0, count);
 		}
 		in.close();
-		out.close();
+		out.close()*/
+		
+		//thumbnail 파일 다운로드 없이 바로 출력하기
+		if(image.exists()) {
+			Thumbnails.of(image).size(50, 50).outputFormat("png").toOutputStream(out);
+		} else {
+			return;
+		}
+		
+		byte[] buffer = new byte[1024*8];
+		out.write(buffer);
 	}
 }
