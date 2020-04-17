@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.pro27.member.service.MemberService;
 import com.myspring.pro27.member.vo.MemberVO;
@@ -68,9 +70,39 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 	}
 
 	@RequestMapping(value="/member/*Form.do",method=RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView form(@RequestParam(value="result", required=false) String result, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = getViewName(request);
 		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("result", result);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/member/login.do",method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("member") MemberVO member,RedirectAttributes rAttr , HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.login(member);
+		if(memberVO !=null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", memberVO);
+			session.setAttribute("isLogOn", true);
+			mav.setViewName("redirect:/member/listMembers.do");
+		} else {
+			rAttr.addAttribute("result", "loginFailed");
+			mav.setViewName("redirect:/member/loginForm.do");
+		}
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/member/logout.do",method=RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		session.removeAttribute("member");
+		session.removeAttribute("isLogOn");
+		mav.setViewName("redirect:/member/listMembers.do");
 		return mav;
 	}
 	
@@ -104,4 +136,6 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 		}
 		return viewName;
 	}
+
+	
 }

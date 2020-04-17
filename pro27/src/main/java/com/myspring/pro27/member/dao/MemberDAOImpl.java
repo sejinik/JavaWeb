@@ -33,4 +33,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
+	@Override
+	public MemberVO loginById(MemberVO memberVO) throws DataAccessException {
+		MemberVO member = sqlSession.selectOne("mapper.member.loginById",memberVO);
+		return member;
+	}
+
 }

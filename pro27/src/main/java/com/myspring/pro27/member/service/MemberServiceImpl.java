@@ -33,4 +33,10 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public MemberVO login(MemberVO memberVO) throws DataAccessException {
+		MemberVO member = memberDAO.loginById(memberVO);
+		return member;
+	}
+
 }
