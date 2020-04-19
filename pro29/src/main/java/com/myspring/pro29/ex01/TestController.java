@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -89,5 +90,17 @@ public class TestController {
 			membersList.add(member);
 		}
 		return new ResponseEntity<List<MemberVO>>(membersList,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(value="/res3")
+	public ResponseEntity res3() {
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
+		String message = "<script>";
+		message +=" alert('새 회원을 등록합니다'); ";
+		message +="location.href='/pro29/test/membersList2'; ";
+		message +="</script>";
+		return new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 	}
 }
