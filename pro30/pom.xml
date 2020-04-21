@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.myspring</groupId>
-	<artifactId>pro27</artifactId>
-	<name>pro27</name>
+	<artifactId>pro30</artifactId>
+	<name>pro30</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -115,7 +115,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>      
 		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -170,7 +170,7 @@
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-servlet</artifactId>
 			<version>2.2.2</version>
-		</dependency>
+		</dependency>  
 	</dependencies>
     <build>
         <plugins>
