@@ -18,4 +18,9 @@
 		<put-attribute name="title" value="글 상세창" />
 		<put-attribute name="body" value="/WEB-INF/views/board/viewArticles.jsp" />
 	</definition>
+	
+	<definition name="/board/articleForm" extends="baseLayout">
+		<put-attribute name="title" value="글 상세창" />
+		<put-attribute name="body" value="/WEB-INF/views/board/articleForm.jsp" />
+	</definition>
 </tiles-definitions>
