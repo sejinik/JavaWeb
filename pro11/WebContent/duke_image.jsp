@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>duke_image</title>
-</head>
+</head> 
 <body>
 	<img src="./image/duke.png" />
 </body>

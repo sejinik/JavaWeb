@@ -10,4 +10,4 @@
 	<h1>Hello JSP!</h1>
 	<h1>JSP 실습입니다!</h1>
 </body>
-</html>
+</html> 
