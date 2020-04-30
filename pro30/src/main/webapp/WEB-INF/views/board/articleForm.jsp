@@ -30,6 +30,12 @@
 		obj.action="${contextPath}/board/listArticles.do";
 		obj.submit();
 	}
+	
+	let cnt=1;
+	function fn_addfile(){
+		$("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"'/>");
+		cnt++;
+	}
 </script>
 </head>
 <body>
@@ -52,6 +58,11 @@
 		 		<td align="right">이미지 파일 첨부 : </td>
 		 		<td><input type="file" name="imageFileName" onchange="readURL(this);" /></td>
 		 		<td><img id="preview" src="#" width=200 height=200></td>
+		 		<td align="right">이미지 파일 첨부</td>
+		 		<td align="left"><input type="button" value="파일 추가" onclick="fn_addfile()" /></td>
+		 	</tr>
+		 	<tr>
+		 		<td colspan="4"><div id="d_file"></div></td>
 		 	</tr>
 		 	<tr>
 		 		<td align="right"></td>

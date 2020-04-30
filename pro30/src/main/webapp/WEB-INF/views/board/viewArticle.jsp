@@ -7,7 +7,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-
+<c:set var="article" value="${articleMap.article }" />
+<c:set var="imageFileList" value="${articleMap.imageFileList }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,41 +116,24 @@
 					<textarea rows="20" cols="60" name="content" id="i_content" disabled >${article.content }</textarea>
 				</td>
 			</tr>
-			<c:choose>
-				<c:when test="${not empty article.imageFileName && article.imageFileName != 'null' }">
-				<tr>
-					<td width="20%" align="center" bgcolor="#FF9933" rowspan="2">
-						이미지
-					</td>
-					<td>
-						<input type="hidden" name="originalFileName" value="${article.imageFileName}">
-						<img src="${contextPath }/download.do?imageFileName=${article.imageFileName}&articleNO=${article.articleNO}" id="preview" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="file" name="imageFileName" id="i_imageFileName" disabled onchange="readURL(this);">
-					</td>
-				</tr>
-				</c:when>
-				<c:otherwise>
-					<tr id="tr_file_upload">
-						<td width="20%" align="center" bgcolor="#FF9933" rowspan="2">
-							이미지
-						</td>
-						<td>
-							<input type="hidden" name="originFileName" value="${article.imageFileName }" />
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<img id="preview" /><br>
-							<input type="file" name="imageFileName" id="i_imageFileName" disabled onchange="readURL(this);"  />
-						</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+				<c:if test="${not empty imageFileList && imageFileList != 'null' }">
+					<c:forEach var="item" items="#{imageFileList }" varStatus="status">
+						<tr>
+							<td width="150" align="center" bgcolor="#FF9933" rowspan="2">
+								이미지${status.count }
+							</td>
+							<td>
+								<input type="hidden" name="originalFileName" value="${item.imageFileName}">
+								<img src="${contextPath }/download.do?imageFileName=${item.imageFileName}&articleNO=${article.articleNO}" id="preview" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="file" name="imageFileName" id="i_imageFileName" disabled onchange="readURL(this);">
+							</td>
+						</tr>
+					</c:forEach>
+				</c:if>
 			<tr>
 				<td width="20%" align="center" bgcolor="#FF9933">
 					등록일자

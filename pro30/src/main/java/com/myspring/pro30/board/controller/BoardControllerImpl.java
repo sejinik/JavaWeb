@@ -198,7 +198,7 @@ public class BoardControllerImpl  implements BoardController{
 	}
 	
 	 //한 개 이미지 글쓰기
-	@Override
+	/*@Override
 	@RequestMapping(value="/board/addNewArticle.do" ,method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, 
@@ -250,6 +250,80 @@ public class BoardControllerImpl  implements BoardController{
 			e.printStackTrace();
 		}
 		return resEnt;
+	}*/
+	
+	//다중 이미지 글 추가하기
+	@Override
+	@RequestMapping(value="/board/addNewArticle.do",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, 
+			HttpServletResponse response) throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		String imageFileName = null;
+		
+		Map articleMap = new HashMap();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			articleMap.put(name, value);
+		}
+		
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String id = memberVO.getId();
+		articleMap.put("id", id);
+		
+		List<String> fileList = uploads(multipartRequest);
+		List<ImageVO> imageFileList = new ArrayList<ImageVO>();
+		if(fileList != null && fileList.size()!=0) {
+			for(String fileName : fileList) {
+				ImageVO imageVO = new ImageVO();
+				imageVO.setImageFileName(fileName);
+				imageFileList.add(imageVO);
+			}
+			articleMap.put("imageFileList", imageFileList);
+		}
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		try {
+			int articleNO = boardService.addNewArticle(articleMap);
+			if(imageFileList != null && imageFileList.size() != 0) {
+				for(ImageVO imageVO : imageFileList) {
+					imageFileName = imageVO.getImageFileName();
+					File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				}
+			}
+			
+			message = "<script>";
+			message += " alert('새 굴을 추가했습니다');";
+			message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
+			message +="</script>";
+			resEnt = new ResponseEntity(message,responseHeaders,HttpStatus.CREATED);
+		} catch (Exception e) {
+			if(imageFileList != null && imageFileList.size() != 0) {
+				for(ImageVO imageVO : imageFileList) {
+					imageFileName = imageVO.getImageFileName();
+					File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+					srcFile.delete();
+				}
+			}
+			
+			message = " <script>";
+			message +=" alert('오류가 발생했습니다. 다시 시도해 주세요'); ";
+			message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
+			message +=" </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		
+		return resEnt;
 	}
 	
 	@RequestMapping(value = "/board/*Form.do", method =  RequestMethod.GET)
@@ -264,13 +338,12 @@ public class BoardControllerImpl  implements BoardController{
 
 	@Override
 	@RequestMapping(value="/board/viewArticle.do", method=RequestMethod.GET)
-	public ModelAndView viewArticle(int articleNO, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		
-		articleVO = boardService.viewArticle(articleNO);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("article",articleVO);
+		Map articleMap = boardService.viewArticle(articleNO);
+				ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("articleMap",articleMap);
 		
 		return mav;
 	}
@@ -390,6 +463,28 @@ public class BoardControllerImpl  implements BoardController{
 		return imageFileName;
 	}
 
-	
+	// 다중 이미지 업로드
+	private List<String> uploads(MultipartHttpServletRequest multipartRequest) throws Exception {
+		List<String> fileList = new ArrayList<String>();
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		
+		while(fileNames.hasNext()) {
+			String fileName = fileNames.next();
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			String originalFileName = mFile.getOriginalFilename();
+			fileList.add(originalFileName);
+			File file = new File(ARTICLE_IMAGE_REPO+"\\"+fileName);
+			if(mFile.getSize() != 0) {
+				if(!file.exists()) {
+					if(file.getParentFile().mkdirs()) {
+						file.createNewFile();
+					}
+				}
+				mFile.transferTo(new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+originalFileName));
+			}
+		}
+		
+		return fileList;
+	}
 	
 }
