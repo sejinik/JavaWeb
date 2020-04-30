@@ -16,7 +16,8 @@
 	
 	<definition name="/board/viewArticle" extends="baseLayout" >
 		<put-attribute name="title" value="글 상세창" />
-		<put-attribute name="body" value="/WEB-INF/views/board/viewArticles.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/board/viewArticle.jsp" />
 	</definition>
+	
 	
 </tiles-definitions>

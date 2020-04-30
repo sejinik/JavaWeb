@@ -282,6 +282,19 @@ public class BoardControllerImpl  implements BoardController{
 		}
 		return imageFileName;
 	}
+
+	@Override
+	@RequestMapping(value="/board/viewArticle.do", method=RequestMethod.GET)
+	public ModelAndView viewArticle(int articleNO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		
+		articleVO = boardService.viewArticle(articleNO);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("article",articleVO);
+		
+		return mav;
+	}
 	
 	
 }

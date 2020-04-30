@@ -38,4 +38,10 @@
 		]]>
 	</select>
 	
+	<select id="selectArticle" resultType="articleVO" parameterType="int">
+		<![CDATA[
+			select * from t_board where articleNO=#{articleNO}
+		]]>
+	</select>
+	
 </mapper>
