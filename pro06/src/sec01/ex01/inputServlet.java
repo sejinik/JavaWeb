@@ -16,7 +16,7 @@ public class inputServlet extends HttpServlet {
 		System.out.println("inputServlet 실행");
 	}
 
-	
+	 
 	public void destroy() {
 		System.out.println("inputServlet 종료");
 	}

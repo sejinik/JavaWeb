@@ -23,5 +23,5 @@ public class GetCookieValue extends HttpServlet {
 				out.print("<h2>Cookie 값 가져오기 : "+URLDecoder.decode(c.getValue(),"utf-8"));
 		}
 	}
-
+ 
 }

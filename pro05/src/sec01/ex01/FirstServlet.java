@@ -12,7 +12,7 @@ import javax.sql.rowset.serial.SerialException;
 @WebServlet("/first")
 public class FirstServlet extends HttpServlet{
 	
-	@Override
+	@Override 
 	public void init() throws ServletException{
 		System.out.println("init 메서드 호출");
 	}

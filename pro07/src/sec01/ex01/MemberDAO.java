@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberDAO {
+public class MemberDAO { 
 	//DB 접속정보
 	private static final String driver = "oracle.jdbc.driver.OracleDriver";
 	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";

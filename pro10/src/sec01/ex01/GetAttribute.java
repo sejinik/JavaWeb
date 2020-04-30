@@ -20,7 +20,7 @@ public class GetAttribute extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		ServletContext ctx = getServletContext();
-		HttpSession sess = request.getSession();
+		HttpSession sess = request.getSession(); 
 		
 		String ctxMesg = (String) ctx.getAttribute("context");
 		String sesMesg = (String) sess.getAttribute("session");
