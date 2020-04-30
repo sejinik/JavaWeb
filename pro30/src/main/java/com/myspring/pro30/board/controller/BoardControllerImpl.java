@@ -332,6 +332,40 @@ public class BoardControllerImpl  implements BoardController{
 		return resEnt;
 	}
 	
+	@Override
+	@RequestMapping(value="/board/removeArticle.do",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity removeArticle(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setContentType("text/html;charset=utf-8");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
+		try {
+			boardService.removeArticle(articleNO);
+			File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+			FileUtils.deleteDirectory(destDir);
+			
+			message = "<script>";
+			message+= " alert('글을 삭제했습니다');";
+			message+= " location.href='"+request.getContextPath()+"/board/listArticles.do';";
+			message+= "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			message = "<script>";
+			message+= " alert('삭제 중 오류가 발생했습니다. 다시 시도해 주세요');";
+			message+= " location.href='"+request.getContextPath()+"/board/listArticles.do';";
+			message+= "</script>";
+			
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}
+		
+		return resEnt;
+	}	
+	
+	
 	//한개 이미지 업로드하기
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		String imageFileName= null;
@@ -354,7 +388,8 @@ public class BoardControllerImpl  implements BoardController{
 			}
 		}
 		return imageFileName;
-	}	
+	}
+
 	
 	
 }
